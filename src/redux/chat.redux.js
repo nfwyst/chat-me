@@ -15,10 +15,11 @@ const creaters = {
       id
     }
   },
-  msgRecv(msg) {
+  msgRecv(msg, id) {
     return {
       type: MSG_RECV,
       payload: msg,
+      id
     }
   },
   read(data) {
@@ -40,7 +41,8 @@ export function chat(state = initState, action) {
     case MSG_LIST:
       return {...state, users: action.payload.users, chatmsg: action.payload.msgs, unread: action.payload.msgs.filter(i => !i.read && i.from !== action.id).length}
     case MSG_RECV:
-      return {...state, chatmsg: [...state.chatmsg, action.payload], unread: state.unread+1}
+      const pls = action.id === action.payload.from ? 0 : 1;
+      return {...state, chatmsg: [...state.chatmsg, action.payload], unread: state.unread + pls}
     case MSG_READ:
       return {...state}
     default:
@@ -51,8 +53,7 @@ export function chat(state = initState, action) {
 export function recvMsg(id) {
   return dispatch => {
     socket.on('recvmsg', (data) => {
-      if(data.from === id || !id) return false;
-      dispatch(creaters.msgRecv(data));
+      dispatch(creaters.msgRecv(data, id));
     });
   }
 }

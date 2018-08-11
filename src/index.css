@@ -67,3 +67,11 @@ html:not([data-scale]) .am-list-body::after {
   margin-bottom: 45px;
   overflow: scroll;
 }
+
+#chat-page .am-grid-icon {
+  display: none;
+}
+
+#chat-page .am-grid-text {
+  margin-top: 0;
+}
