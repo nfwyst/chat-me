@@ -43,6 +43,7 @@ class Chat extends React.Component {
   render() {
     const user = this.props.match.params.user;
     const me = this.props.user._id;
+    const filters = [`${user}${me}`, `${me}${user}`];
     const emojis = "😁 😂 😃 😄 😅 😆 😉 😊 😋 😌 😍 😏 😒 😓 😔 😖 😘 😚 😜 😝 😞 😠 😡 😢 😣 😤 😥 😨 😩 😪 😫 😭 😰 😱 😲 😳 😵 😷 😸 😹 😺 😻 😼 😽 😾 😿 🙀 🙅 🙆 🙇 🙈 🙉 🙊 🙋 🙌 🙍 🙎 🙏".split(' ').filter(i => i).map(i => ({text: i}));
     return (
       <div id="chat-page">
@@ -52,7 +53,9 @@ class Chat extends React.Component {
         <WhiteSpace />
         <div className="chat-content">
           <WingBlank>
-            {this.props.chat.chatmsg.filter(m => (m.from === user && m.to === me) || (m.from === me || m.to === user) ).map((v, index) => {
+            {this.props.chat.chatmsg.filter(m => {
+              return filters.includes(m.chatid);
+            } ).map((v, index) => {
               let lthumb = null;
               let rthumb = null;
               if(this.props.chat.users && this.props.chat.users[user]) {

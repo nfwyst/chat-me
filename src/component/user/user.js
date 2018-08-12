@@ -42,7 +42,7 @@ class User extends React.Component {
         <List renderHeader={() => '简介'}>
           <List.Item multipleLine>
             {this.props.title}
-            {this.props.desc.split('/n').map(item => <List.Item.Brief key={item}>{item}</List.Item.Brief>)}
+            {this.props.desc ? this.props.desc.split('/n').map(item => <List.Item.Brief key={item}>{item}</List.Item.Brief>) : null}
             {this.props.money ? <List.Item.Brief>薪资: {this.props.money}</List.Item.Brief> : null}
           </List.Item>
         </List>
