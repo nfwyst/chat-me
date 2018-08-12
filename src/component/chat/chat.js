@@ -24,6 +24,7 @@ class Chat extends React.Component {
     this.props.clearUnread({
       from: this.props.match.params.user
     });
+    this.props.getMsgList(this.props.user._id);
   }
 
   fixEmoji() {
