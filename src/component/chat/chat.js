@@ -20,7 +20,7 @@ class Chat extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentWillUnmount() {
     this.props.clearUnread({
       from: this.props.match.params.user
     });
